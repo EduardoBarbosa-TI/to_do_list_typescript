@@ -1,7 +1,8 @@
 import express from 'express'
-import routes from './routes/user'
+import routes from './routes/User'
 import 'dotenv/config'
-import { Pool, QueryResult } from 'pg'
+import { Pool } from 'pg'
+import './shared/services/TranslationsYup'
 
 class App {
     public express: express.Application
@@ -16,20 +17,22 @@ class App {
             port: 5432,
         })
         this.express = express()
+        this.middlewares()
         this.routes()
         this.database()
     }
 
-    private middlewares() {
+    private middlewares(): void {
         this.express.use(express.json())
     }
 
     private async database(): Promise<void> {
         const client = await this.pool.connect();
-    
+
         try {
             console.log('Conexão com o banco de dados estabelecida com sucesso.')
         } catch(error) {
+            
             console.error('Erro ao conectar-se ao banco de dados:', error)
         }
     }
@@ -37,7 +40,6 @@ class App {
     private routes(): void {
         this.express.use(routes)
     }
-
 }
 
 export default new App().express 
