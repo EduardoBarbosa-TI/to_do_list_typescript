@@ -1,27 +1,24 @@
 import { Router } from 'express'
-import UserController from '../controllers/UserController'
+import { UserController } from '../controllers'
+
 
 const routes = Router()
 
-routes.get('/', (_,res) =>{
-    return res.send("Hello, Dev!")
-})
 
-// routes.get('/usuarios',
+
+routes.post(
+    '/cadastro',
+    UserController.createValidation,
+    UserController.create
+)
+
+
+// routes.put('/usuarios/:id',
 //     //middlewares
 //     UserController.index
 // )
 
-routes.post('/usuarios',UserController.index)
-
-
-
-// routes.put('/usuarios',
-//     //middlewares
-//     UserController.index
-// )
-
-// routes.delete('/usuarios',
+// routes.delete('/usuarios/:id',
 //     middlewares
 //     UserController.delete
 // )
