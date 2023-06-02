@@ -2,6 +2,7 @@ import { Router } from 'express'
 import { UserController } from '../controllers'
 
 
+
 const routes = Router()
 
 
@@ -9,7 +10,8 @@ const routes = Router()
 routes.post(
     '/cadastro',
     UserController.createValidation,
-    UserController.create
+    UserController.createValidation,
+    UserController.create   
 )
 
 
