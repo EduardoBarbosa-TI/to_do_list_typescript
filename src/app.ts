@@ -3,6 +3,7 @@ import routes from './routes/User'
 import 'dotenv/config'
 import { Pool } from 'pg'
 import './shared/services/TranslationsYup'
+import "reflect-metadata"
 
 class App {
     public express: express.Application
