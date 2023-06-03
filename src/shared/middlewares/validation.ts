@@ -3,7 +3,7 @@ import  { ObjectSchema, ValidationError, Maybe, AnyObject} from 'yup'
 import { StatusCodes } from 'http-status-codes'
 
 
-type TProperty = 'body' | 'header' | 'params' 
+type TProperty = 'body' | 'header' | 'params' | 'query'
 
 type TGetSchema = <T extends Maybe<AnyObject>>(schema: ObjectSchema<T>) => ObjectSchema<T>
 
@@ -14,14 +14,11 @@ type TGetAllSchemas = (getSchema: TGetSchema) => Partial<TAllSchemas>
 type TValidation = (getAllSchemas: TGetAllSchemas) => RequestHandler
 
 export const validation: TValidation = (getAllSchemas) => async (req,res,next) => {
-
-
   const schemas = getAllSchemas((schema) => schema)
  
   const errorsResult: Record<string,Record<string, string>>= {}
   const bodySchema = new ObjectSchema(req.body).fields
   const errors: Record<string, string> = {};
-  let fieldExists = false;
  
   Object.entries(schemas).forEach(([key, schema]) => {
     try{
@@ -40,18 +37,15 @@ export const validation: TValidation = (getAllSchemas) => async (req,res,next) =
           }
         }
       }
-        
-        if(!error.path) return
-        errors[error.path] = error.message
+
+      if(!error.path) return
+      errors[error.path] = error.message
         
       })
       
       errorsResult[key] = errors
     }
   }) 
-
- 
-
 
   if (Object.entries(errorsResult).length === 0) {
       return next()
