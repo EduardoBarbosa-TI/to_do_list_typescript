@@ -16,4 +16,10 @@ export const AppDataSource = new DataSource({
     migrations: [],
 })
 
-
+AppDataSource.initialize()
+    .then(() => {
+        console.log("Conexão estabelecida!")
+    })
+    .catch((err) => {
+        console.error("Erro durante a inicialização do banco de dados", err)
+    })
