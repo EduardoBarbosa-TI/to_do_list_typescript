@@ -1,29 +1,34 @@
 import { Router } from 'express'
 import { UserController } from '../controllers'
 
+import { authorizeUserByToken } from '../auth'
 
 
 const routes = Router()
 
-
-
 routes.post(
     '/cadastro',
-    UserController.createValidation,
     UserController.createValidation,
     UserController.create   
 )
 
+routes.post(
+    '/login',
+    UserController.authValidation,
+    UserController.authenticate
+)
 
-// routes.put('/usuarios/:id',
-//     //middlewares
-//     UserController.index
-// )
+routes.get(
+    '/usuarios',
+    authorizeUserByToken,
+    UserController.getAll
+)
 
-// routes.delete('/usuarios/:id',
-//     middlewares
-//     UserController.delete
-// )
+routes.get(
+    '/usuarios/:id',
+    authorizeUserByToken,
+    UserController.getAll
+)
 
 export default routes
 
