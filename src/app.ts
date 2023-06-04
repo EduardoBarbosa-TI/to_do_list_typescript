@@ -1,9 +1,10 @@
 import express from 'express'
-import routes from './routes/User'
 import 'dotenv/config'
 import { Pool } from 'pg'
 import './shared/services/TranslationsYup'
 import "reflect-metadata"
+import routesUser from './routes/User'
+import routesTask from './routes/Task'
 
 class App {
     public express: express.Application
@@ -39,7 +40,8 @@ class App {
     }
 
     private routes(): void {
-        this.express.use(routes)
+        this.express.use(routesUser)
+        this.express.use(routesTask)
     }
 }
 
