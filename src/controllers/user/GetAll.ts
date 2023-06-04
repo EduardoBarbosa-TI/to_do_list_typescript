@@ -5,8 +5,6 @@ import { validation } from '../../shared/middlewares'
 import { AppDataSource } from '../../database/data-source'
 import { User } from '../../entidades'
 
-
-
 interface IQueryProps {
   id?: string
   page?: number
@@ -23,8 +21,17 @@ export const getAllValidation = validation((getSchema) => ({
   }))
 }))
 
-
 export const getAll = async (req: Request<{}, {}, {}, IQueryProps>, res: Response) => {
-    const result = await AppDataSource.manager.find(User)
-    res.json(result);
-  };
+  try {
+    const users = await AppDataSource.manager.find(User)
+    return res.status(StatusCodes.OK).json({
+      user: users
+    })
+  } catch (error) {
+    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+      erros: {
+        default: 'Erro ao listar usuários!'
+      }
+    })
+  }
+};
