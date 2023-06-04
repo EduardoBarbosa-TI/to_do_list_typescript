@@ -7,18 +7,16 @@ import { User } from "../../entidades/User"
 import { AppDataSource } from "../../database/data-source"
 import { StatusCodes } from "http-status-codes"
 
-interface IBodyPropsValidation extends Omit<IUser, 'id'> {}
+interface IBodyProps extends Omit<IUser, 'id'> {}
 
 export const createValidation = validation((getSchema) => ({
-    body: getSchema<IBodyPropsValidation>(yup.object().shape({
+    body: getSchema<IBodyProps>(yup.object().shape({
         firstName: yup.string().required().min(3).max(150),
         lastName: yup.string().optional().min(3).max(150),
         email: yup.string().email().required(),
         password: yup.string().required()
     }))
 }))
-
-
 
 export const create = async (req: Request,res: Response)=> {
     const {password,firstName,lastName,email} = req.body
@@ -33,7 +31,7 @@ export const create = async (req: Request,res: Response)=> {
     user.password = hashedPassword
     
     try {
-      AppDataSource.manager.save(user)
+      (await AppDataSource.manager.save(user)).hasId
 
       return res.status(StatusCodes.CREATED).json({
         "message": "Usuário criado com sucesso!, id: " + user.id
