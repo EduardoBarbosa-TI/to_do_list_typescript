@@ -1,6 +1,7 @@
-import { Entity, PrimaryGeneratedColumn,CreateDateColumn,UpdateDateColumn, Column, BaseEntity, BeforeUpdate } from "typeorm"
+import { Entity, PrimaryGeneratedColumn,CreateDateColumn,UpdateDateColumn, Column, BaseEntity, BeforeUpdate, UpdateResult, OneToMany } from "typeorm"
 import { IUser } from "../models"
 import bcrypt from 'bcrypt'
+import { Task } from "./Task";
 
 @Entity()
 export class User extends BaseEntity implements IUser {
@@ -24,7 +25,15 @@ export class User extends BaseEntity implements IUser {
 
     @BeforeUpdate()
     @UpdateDateColumn({ nullable: true})
-    updatedAt!: Date | null;
+    updatedAt!: Date;
+
+    @OneToMany(() => Task, (task) => task.user)
+    tasks!: Task[]
+}
+
+export const updateById =  async(id_d: string, user: IUser): Promise<UpdateResult | null> => {
+    const updateResult = await User.createQueryBuilder().update(User).set(user).where("id = :id", { id: id_d }).returning('*').execute();
+    return updateResult
 }
 
 export const getUserByEmail = async (email: string): Promise<User | null> => {
