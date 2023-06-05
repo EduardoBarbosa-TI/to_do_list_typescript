@@ -7,15 +7,6 @@ import { AppDataSource } from "../../database/data-source"
 import { StatusCodes } from "http-status-codes"
 import jwt from "jsonwebtoken"
 
-interface IBodyProps extends Omit<ITask, 'id'>{}
-
-export const createValidation = validation(getSchema => ({
-    body: getSchema<IBodyProps>(yup.object().shape({
-        titulo: yup.string().required().max(20),
-        descricao: yup.string().required().max(100)
-    })) 
-}))
-
 export const create = async (req: Request,res: Response) => {
     const token = req.query.token || req.headers['x-access-token'];
     const {titulo, descricao} = req.body
