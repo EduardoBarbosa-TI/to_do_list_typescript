@@ -8,14 +8,8 @@ export const create = async (req: Request,res: Response)=> {
     const {password,firstName,lastName,email} = req.body
     
     const hashedPassword =  await bcrypt.hash(password,15)
+    const user = new User(firstName,lastName,email,hashedPassword)
 
-    const user = new User()
-
-    user.firstName = firstName
-    user.lastName = lastName
-    user.email= email
-    user.password = hashedPassword
-    
     try {
       (await AppDataSource.manager.save(user)).hasId
 
