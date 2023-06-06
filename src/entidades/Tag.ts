@@ -1,5 +1,6 @@
-import { BaseEntity, BeforeUpdate, Column, CreateDateColumn, Entity, PrimaryColumn, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { BaseEntity, BeforeUpdate, Column, CreateDateColumn, Entity, ManyToMany, PrimaryColumn, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import { ITag } from "../models/Tag";
+import { Task } from "./Task";
 
 @Entity()
 export class Tag extends BaseEntity implements ITag{
@@ -15,4 +16,7 @@ export class Tag extends BaseEntity implements ITag{
     @BeforeUpdate()
     @UpdateDateColumn({ nullable: true})
     updatedAt!: Date;
+
+    @ManyToMany(() => Task, (task) => task.tags)
+    tasks!: Task[]
 }
