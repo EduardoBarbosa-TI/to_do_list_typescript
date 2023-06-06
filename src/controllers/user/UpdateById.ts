@@ -1,20 +1,20 @@
 import { Request, Response } from 'express'
-import { IUser } from '../../models'
 import { StatusCodes } from 'http-status-codes'
-import bcrypt from 'bcrypt';
-import { updateById } from '../../entidades';
 import { IBodyProps } from '../../schemas/user/BodyUpdate';
 import { IProps } from '../../schemas/user/Params';
+import { AppDataSource } from '../../database/data-source';
+import { User } from '../../entidades';
+import bcrypt from 'bcrypt';
 
 export const resultUpdateById =  async (req: Request<IProps,{},IBodyProps>,res: Response) => {
     const {password} = req.body
     if(password) req.body.password = await bcrypt.hash(password,15)
-
     try {
-        const result = await updateById(String(req.params.id),req.body as IUser)
-        return res.status(StatusCodes.NO_CONTENT).json(result)
+        AppDataSource.manager.update(User,req.params.id,req.body)
+        return res.status(StatusCodes.OK).json({
+            message: 'Usuário atualizado com sucesso!'
+        })
     } catch (error) {
-        
          return res.status(StatusCodes.NOT_FOUND).json({
             errors:{
                 default: 'Usuário não encontrado! '
