@@ -1,7 +1,7 @@
 import { Router } from 'express'
 import { UserController } from '../controllers'
 import { authorizeUserByToken } from '../auth'
-import { UserSchema } from '../schemas'
+import { TaskSchema, UserSchema } from '../schemas'
 
 
 const routesUser = Router()
@@ -27,7 +27,7 @@ routesUser.get(
 routesUser.get(
     '/usuarios/:id',
     authorizeUserByToken,
-    UserSchema.paramsId,
+    UserSchema.params,
     UserController.getById
 )
 
@@ -35,14 +35,14 @@ routesUser.put(
     '/usuarios/:id',
     authorizeUserByToken,
     UserSchema.bodyUpdate,
-    UserSchema.paramsId,
+    UserSchema.params,
     UserController.resultUpdateById
 )
 
 routesUser.delete( 
     '/usuarios/:id',
     authorizeUserByToken,
-    UserSchema.paramsId,
+    UserSchema.params,
     UserController.deleteById
 )
 
