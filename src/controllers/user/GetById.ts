@@ -1,19 +1,7 @@
-
-import * as yup from 'yup'
 import { Request, Response } from 'express'
 import { StatusCodes } from 'http-status-codes'
-import { validation } from "../../shared/middlewares"
 import { getUserById } from '../../entidades'
-
-interface IProps {
-    id?: string 
-}
-
-export const getByIdValidation = validation(getSchema => ({
-    params: getSchema<IProps>(yup.object().shape({
-        id: yup.string().required()
-    }))
-}))
+import { IProps } from '../../schemas/user/Params'
 
 export const getById = async (req: Request<IProps>,  res: Response) => {
     if(!req.params){
