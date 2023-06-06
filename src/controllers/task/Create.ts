@@ -1,29 +1,19 @@
 import { Request, Response } from "express"
-import { validation } from "../../shared/middlewares"
-import { ITag, ITask, IUser } from "../../models"
-import * as yup from 'yup'
-import { Tag, Task, User } from "../../entidades"
+import {Task, User } from "../../entidades"
 import { AppDataSource } from "../../database/data-source"
 import { StatusCodes } from "http-status-codes"
-import jwt from "jsonwebtoken"
+
 
 export const create = async (req: Request,res: Response) => {
-    const token = req.query.token || req.headers['x-access-token'];
-    const {titulo, descricao} = req.body
-
-    const task =  new Task()
-
-    task.titulo = titulo
-    task.descricao = descricao
+    const {title, description} = req.body
+    const task =  new Task(title,description)   
+    const id = String(req.headers['id-access-token']) 
     
     try {
-        const userToken = jwt.verify(token as string , 'SECRET') as IUser;
-        const user = await AppDataSource.manager.findOne(User, { where: { id: userToken.id } })
+        const user = await AppDataSource.manager.findOne(User, { where: { id: id} })
 
         if(!user){
-            return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
-                message: 'Usuário não encontrado!'
-            })
+            throw new Error('Usuário não encontrado!')
         }
 
         task.user = user 
