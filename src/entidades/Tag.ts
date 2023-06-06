@@ -8,15 +8,20 @@ export class Tag extends BaseEntity implements ITag{
     id!: string
     
     @Column()
-    titulo!: string
+    title!: string
 
     @CreateDateColumn()
     createdAt!: Date
 
     @BeforeUpdate()
-    @UpdateDateColumn({ nullable: true})
+    @UpdateDateColumn()
     updatedAt!: Date;
 
     @ManyToMany(() => Task, (task) => task.tags)
     tasks!: Task[]
+
+    constructor(title: string){
+        super()
+        this.title = title
+    }
 }
