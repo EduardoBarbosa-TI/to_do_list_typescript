@@ -5,6 +5,7 @@ import './shared/services/TranslationsYup'
 import "reflect-metadata"
 import routesUser from './routes/User'
 import routesTask from './routes/Task'
+import routesTag from './routes/Tag'
 
 class App {
     public express: express.Application
@@ -30,7 +31,6 @@ class App {
 
     private async database(): Promise<void> {
         const client = await this.pool.connect();
-
         try {
             console.log('Conexão com o banco de dados estabelecida com sucesso.')
         } catch(error) {
@@ -42,6 +42,7 @@ class App {
     private routes(): void {
         this.express.use(routesUser)
         this.express.use(routesTask)
+        this.express.use(routesTag)
     }
 }
 
