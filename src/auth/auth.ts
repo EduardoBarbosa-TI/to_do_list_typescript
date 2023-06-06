@@ -1,7 +1,8 @@
 import jwt from "jsonwebtoken"
 import { IUser } from "../models"
 import { NextFunction, Request, Response } from "express"
-import { getUserById } from "../entidades"
+import { AppDataSource } from "../database/data-source"
+import { User } from "../entidades"
 
 export const gerarToken = (user: IUser): String => {
     const decodedToken = {
@@ -23,10 +24,13 @@ export const authorizeUserByToken = async (req: Request, res: Response, next: Ne
         }
         try{
             const userToken = jwt.verify(token as string , 'SECRET') as IUser;
-            const user = await getUserById(userToken.id)
+            const user = await AppDataSource.manager.find(User, { where: { id: userToken.id } })
+
             if (!user){
                 return res.status(400).send({ message : 'Usuário inexistente!'});
             }
+
+            req.headers['id-access-token'] = userToken.id
             return next(); 
         } catch (error) {
                 return res.status(401).send({ message: 'Token Inválido' });
