@@ -2,18 +2,7 @@ import { Request, Response } from "express"
 import {comparePassword, getUserByEmail} from "../../entidades/User"
 import { StatusCodes } from "http-status-codes"
 import { gerarToken } from "../../auth/auth"
-import * as yup from 'yup'
 import { IUser } from "../../models"
-import { validation } from "../../shared/middlewares"
-
-interface IBodyProps extends Omit<IUser,'firstName'| 'id' | 'lastName'> {}
-
-export const authValidation = validation((getSchema) => ({
-    body: getSchema<IBodyProps>(yup.object().shape({
-        email: yup.string().email().required(),
-        password: yup.string().required()
-    }))
-}))
 
 export const authenticate = async (req: Request, res: Response): Promise<Response> => 
 {
@@ -27,10 +16,8 @@ export const authenticate = async (req: Request, res: Response): Promise<Respons
         }
 
         const passwordMatche = await comparePassword(password,user.password)
-        if(!passwordMatche){
-            return res.status(StatusCodes.UNAUTHORIZED).send({ message: 'Senha incorreta!' })
-        }
-
+        if(!passwordMatche) return res.status(StatusCodes.UNAUTHORIZED).send({ message: 'Senha incorreta!' })
+        
         return res.json({
             user: user,
             token: gerarToken(user as IUser)
