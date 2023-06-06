@@ -1,18 +1,20 @@
 import { Router } from 'express'
 import { UserController } from '../controllers'
 import { authorizeUserByToken } from '../auth'
+import { UserSchema } from '../schemas'
+
 
 const routesUser = Router()
 
 routesUser.post(
     '/cadastro',
-    UserController.createValidation,
+    UserSchema.bodyRegister,
     UserController.create   
 )
 
 routesUser.post(
     '/login',
-    UserController.authValidation,
+    UserSchema.bodyLogin,
     UserController.authenticate
 )
 
@@ -25,21 +27,22 @@ routesUser.get(
 routesUser.get(
     '/usuarios/:id',
     authorizeUserByToken,
-    UserController.getByIdValidation,
+    UserSchema.paramsId,
     UserController.getById
 )
 
 routesUser.put(
     '/usuarios/:id',
     authorizeUserByToken,
-    UserController.updateByIdValidation,
+    UserSchema.bodyUpdate,
+    UserSchema.paramsId,
     UserController.resultUpdateById
 )
 
 routesUser.delete( 
     '/usuarios/:id',
     authorizeUserByToken,
-    UserController.deleteByIdValidation,
+    UserSchema.paramsId,
     UserController.deleteById
 )
 
