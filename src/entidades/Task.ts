@@ -11,10 +11,10 @@ export class Task extends BaseEntity implements ITask {
     id!: string
 
     @Column()
-    titulo!: string
+    title: string
 
     @Column()
-    descricao!: string
+    description: string
 
     @CreateDateColumn()
     createdAt!: Date
@@ -28,4 +28,10 @@ export class Task extends BaseEntity implements ITask {
     @ManyToMany(() => Tag, (tag) => tag.tasks)
     @JoinTable()
     tags!: Tag[]
+
+    constructor(title: string, description: string){
+        super();
+        this.title = title
+        this.description = description
+    }
 }
