@@ -1,15 +1,16 @@
 import * as create from './Create'
 import * as getAll from './GetAll'
-// import * as getById from './GetById'
-// import * as updateById from './UpdateById'
-// import * as deleteById from './DeleteById'
-// import * as authenticate from './Authenticate'
+import * as registerTag from './RegisterTag'
+import * as getById from './GetById'
+import * as updateById from './UpdateById'
+import * as deleteById from './DeleteById'
+
 
 export const TaskController = {
     ...create,
-    // ...authenticate,
+    ...registerTag,
     ...getAll,
-    // ...getById,
-    // ...updateById,
-    // ...deleteById,
+    ...getById,
+    ...updateById,
+    ...deleteById,
 }
