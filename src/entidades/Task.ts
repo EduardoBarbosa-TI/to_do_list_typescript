@@ -29,9 +29,15 @@ export class Task extends BaseEntity implements ITask {
     @JoinTable()
     tags!: Tag[]
 
-    constructor(title: string, description: string){
+    constructor(title: string, description: string,tags: Tag[]){
         super();
         this.title = title
         this.description = description
+        this.tags = tags;
     }
+
+    static createWithTask(title: string, description: string, tags: Tag[]): Task {
+        return new Task(title, description, tags);
+    }
+   
 }
