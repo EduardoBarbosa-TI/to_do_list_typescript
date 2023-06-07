@@ -1,11 +1,10 @@
 # to-do list
-Consolidando o conhecimento em node.js com typescript e postgreSQL, projeto criado com base nos cursos realizados:
+Consolidando o conhecimento em node.js com typescript e postgreSQL, projeto criado com base nos cursos realizados.
 
 ### Sobre
 Esse projeto foi passado como desafio e foi fundamental para um entendimento mais profundo sobre typescript e node.js. Aliás é no aperto que realmente colocamos em prática nossos conhecimentos.
 
 ### Pré-requisitos
-
 Antes de começar, você vai precisar ter uma conexão com o banco de dados postgreSQL. Utilizei uma imagem docker do [postgreSQL](https://hub.docker.com/_/postgres). Não esqueça de renomear o arquivo .env.example, retirando o '.example', e configurar as variáveis de ambiente da conexão do banco de dados e as demais.
 
 ### 🎲 Rodando o Back End (servidor)
@@ -27,5 +26,5 @@ $ npm seed || yarn seed
 # Execute a aplicação em modo de desenvolvimento
 $ npm start || yarn start
 
-# O servidor inciará na porta:8000 || default:3333
+# O servidor inciará na port:8000 || default:3333
 ```
