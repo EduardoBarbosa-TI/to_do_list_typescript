@@ -6,9 +6,7 @@ import { StatusCodes } from "http-status-codes"
 export const getAll = async (req: Request, res: Response) => {
     try {
         const tag = await AppDataSource.manager.find(Tag, { relations: ['tasks'] })
-        return res.status(StatusCodes.OK).json({
-            tag: tag
-        })
+        return res.status(StatusCodes.OK).json({ tag })
     } catch (error) {
         return res.status(StatusCodes.BAD_REQUEST).json({
             errors: {
