@@ -5,8 +5,7 @@ import { AppDataSource } from "../../database/data-source"
 import { StatusCodes } from "http-status-codes"
 
 export const create = async (req: Request,res: Response)=> {
-    const {password,firstName,lastName,email} = req.body
-    
+    const {password,firstName,lastName,email} = req.body 
     const hashedPassword =  await bcrypt.hash(password,15)
     const user = new User(firstName,lastName,email,hashedPassword)
 
@@ -17,7 +16,6 @@ export const create = async (req: Request,res: Response)=> {
         "message": "Usuário criado com sucesso!, id: " + user.id
     }) 
     } catch (error) {
-        console.log(error)
         return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
             errors: {
               default: error
