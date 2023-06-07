@@ -1,9 +1,7 @@
-import { BaseEntity, Column, CreateDateColumn, Entity, JoinTable, ManyToMany, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { BaseEntity, Brackets, Column, CreateDateColumn, Entity, JoinTable, ManyToMany, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import { ITask } from "../models";
 import { User } from "./User";
 import { Tag } from "./Tag";
-
-
 @Entity()
 export class Task extends BaseEntity implements ITask {
 
@@ -27,7 +25,7 @@ export class Task extends BaseEntity implements ITask {
 
     @ManyToMany(() => Tag, (tag) => tag.tasks)
     @JoinTable()
-    tags!: Tag[]
+    tags: Tag[]
 
     constructor(title: string, description: string,tags: Tag[]){
         super();
@@ -39,5 +37,4 @@ export class Task extends BaseEntity implements ITask {
     static createWithTask(title: string, description: string, tags: Tag[]): Task {
         return new Task(title, description, tags);
     }
-   
 }
