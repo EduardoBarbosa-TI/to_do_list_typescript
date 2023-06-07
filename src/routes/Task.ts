@@ -17,7 +17,8 @@ routesTask.post(
     '/tarefas/:id',
     authorizeUserByToken,
     TaskSchema.params,
-    TaskController.registerTag
+    TaskSchema.bodyCreate,
+    TaskController.bindingTag
 )
 
 routesTask.get(
