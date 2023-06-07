@@ -1,6 +1,6 @@
 import * as create from './Create'
 import * as getAll from './GetAll'
-import * as registerTag from './RegisterTag'
+import * as bindingTag from './bindingTag'
 import * as getById from './GetById'
 import * as updateById from './UpdateById'
 import * as deleteById from './DeleteById'
@@ -8,7 +8,7 @@ import * as deleteById from './DeleteById'
 
 export const TaskController = {
     ...create,
-    ...registerTag,
+    ...bindingTag,
     ...getAll,
     ...getById,
     ...updateById,
