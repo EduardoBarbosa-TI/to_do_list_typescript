@@ -2,7 +2,7 @@ import { Request, Response } from 'express'
 import { StatusCodes } from 'http-status-codes'
 import { AppDataSource } from '../../database/data-source'
 import { User } from '../../entidades'
-import { IQueryProps } from '../../schemas/user/ParamsFilter';
+import { IQueryProps } from '../../schemas/task/QueryFilter' 
 
 export const getAll = async (req: Request<{}, {}, {}, IQueryProps>, res: Response) => {
   try {
