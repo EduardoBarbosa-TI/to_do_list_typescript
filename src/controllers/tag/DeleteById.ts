@@ -8,7 +8,7 @@ export const deleteById = async (req: Request, res: Response) => {
         await AppDataSource.manager.delete(Tag,req.params.id)
         return res.status(StatusCodes.OK).send()
     } catch (error) {
-        return res.send(StatusCodes.INTERNAL_SERVER_ERROR).json({
+        return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
             errors: {
                 default: 'Erro ao deletetar tag!'
             }
