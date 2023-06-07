@@ -1,7 +1,5 @@
 import { DataSource } from "typeorm";
 import 'dotenv/config'
-import { User } from "../entidades/User";
-import { Tag, Task } from "../entidades";
 
 export const AppDataSource = new DataSource({
     type: "postgres",
@@ -12,9 +10,8 @@ export const AppDataSource = new DataSource({
     database: process.env.POSTGRES_DB,
     synchronize: true,
     logging: true,
-    entities: [User,Task,Tag],
+    entities: [__dirname + "/../entidades/*.ts"],
     subscribers: [],
-    migrations: [],
 })
 
 AppDataSource.initialize()
