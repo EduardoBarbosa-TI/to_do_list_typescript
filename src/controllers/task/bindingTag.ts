@@ -25,7 +25,6 @@ export const bindingTag = async (req: Request, res:Response) => {
             message: 'Tag adicionada com sucesso e vinculada com a task!, idTask: ' + task.id
         })
     } catch (error) {
-        console.log(error)
         return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
             error: {
                 default: 'Erro ao adicionar a tag e vincular com a task'
