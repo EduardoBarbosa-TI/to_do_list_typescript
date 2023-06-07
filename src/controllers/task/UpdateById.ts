@@ -4,12 +4,8 @@ import { AppDataSource } from "../../database/data-source"
 import { StatusCodes } from "http-status-codes"
 
 export const updateById  = async (req: Request,res: Response) => {
-    const { title , description } = req.body
-
     try {
-        const newTask = new Task(title,description,[])
-
-        await AppDataSource.manager.update(Task,req.params.id,newTask)
+        await AppDataSource.manager.update(Task,req.params.id,req.body)
 
         return res.status(StatusCodes.CREATED).json({
             message: 'Tarefa alterada com sucesso!'
