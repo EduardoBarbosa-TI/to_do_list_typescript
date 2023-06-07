@@ -4,17 +4,13 @@ import { StatusCodes } from "http-status-codes"
 import { gerarToken } from "../../auth/auth"
 import { IUser } from "../../models"
 import { AppDataSource } from "../../database/data-source"
-import { FindOneOptions } from "typeorm"
-import { string } from "yup"
 
 export const authenticate = async (req: Request, res: Response): Promise<Response> => 
 {
     const {email, password} = req.body
     const user = await AppDataSource.manager.findOne(User, { where: { email } })
 
-    if(!user){
-            return res.status(StatusCodes.NOT_FOUND).send({ message: 'Usuário não encontrado!' })
-    }
+    if(!user){return res.status(StatusCodes.NOT_FOUND).send({ message: 'Usuário não encontrado!' })}
 
     const passwordMatche = await comparePassword(password,user.password)
     if(!passwordMatche) return res.status(StatusCodes.UNAUTHORIZED).send({ message: 'Senha incorreta!' })
