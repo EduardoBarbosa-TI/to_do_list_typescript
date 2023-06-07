@@ -26,6 +26,14 @@ routesTag.post(
     TagController.create
 )
 
+routesTask.post(
+    '/tags/:id',
+    authorizeUserByToken,
+    TagSchema.params,
+    TagSchema.bodyCreate,
+    TagController.bindingTask
+)
+
 routesTag.put(
     '/tags/:id', 
     authorizeUserByToken,
