@@ -6,7 +6,7 @@ import { StatusCodes } from "http-status-codes"
 
 export const create = async (req: Request,res: Response) => {
     const {title, description} = req.body
-    const task =  new Task(title,description)   
+    const task =  new Task(title,description,[])   
     const id = String(req.headers['id-access-token']) 
     
     try {
