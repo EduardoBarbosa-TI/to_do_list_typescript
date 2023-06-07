@@ -1,7 +1,7 @@
 import { Request, Response } from "express"
-import { AppDataSource } from "../../database/data-source"
-import { Task } from "../../entidades"
+import { Task} from "../../entidades"
 import { StatusCodes } from "http-status-codes"
+import { AppDataSource } from "../../database/data-source"
 
 export const getAll = async (req: Request,res: Response) => {
     try {
@@ -10,7 +10,6 @@ export const getAll = async (req: Request,res: Response) => {
             task: task
         })
     } catch (error) {
-        console.log(error)
         return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({   
             error: {
                 default: 'Erro ao listar tarefas!'
