@@ -1,13 +1,14 @@
 import { Request, Response } from "express";
 import { Tag } from "../../entidades";
 import { StatusCodes } from "http-status-codes";
+import { tagRepository } from "../../repositories/TagRepository";
  
 export const create = async (req: Request,res: Response) => {
     const { title } = req.body  
     const tag = new Tag(title)
 
     try {
-        await tag.save()
+        await tagRepository.save(tag)
         return res.status(StatusCodes.CREATED).json({
             message: 'Tag adicionado com sucesso!, ' + tag.id
         })
