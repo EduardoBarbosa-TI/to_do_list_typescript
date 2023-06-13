@@ -1,12 +1,13 @@
 import { Request, Response } from "express";
-import { AppDataSource } from "../../database/data-source";
+import { AppDataSource } from "../../connection/data-source";
 import { Tag } from "../../entidades";
 import { StatusCodes } from "http-status-codes";
+import { tagRepository } from "../../repositories/TagRepository";
 
 export const updateById = async (req: Request,res: Response) => {
     const { title } = req.body
     try {
-        await AppDataSource.manager.update(Tag,req.params.id,{title: title})
+        await tagRepository.update(req.params.id,{title: title})
         return res.status(StatusCodes.CREATED).json({
             message: 'Tag alterada com sucesso!' 
         })
