@@ -36,7 +36,7 @@ routesUser.put(
     authorizeUserByToken,
     UserSchema.bodyUpdate,
     UserSchema.params,
-    UserController.resultUpdateById
+    UserController.updateById
 )
 
 routesUser.delete( 
