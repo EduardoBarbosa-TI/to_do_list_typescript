@@ -1,8 +1,7 @@
-import { BaseEntity, BeforeUpdate, Column, CreateDateColumn, Entity, ManyToMany, PrimaryColumn, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
-import { ITag } from "../models/Tag";
+import { BeforeUpdate, Column, CreateDateColumn, Entity, ManyToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import { Task } from "./Task";
 @Entity()
-export class Tag extends BaseEntity implements ITag{
+export class Tag{
     @PrimaryGeneratedColumn('uuid')
     id!: string
     
@@ -20,7 +19,7 @@ export class Tag extends BaseEntity implements ITag{
     tasks!: Task[]
 
     constructor(title: string){
-        super()
+      
         this.title = title
     }
 }
