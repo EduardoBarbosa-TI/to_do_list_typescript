@@ -1,33 +1,24 @@
 import { Entity, PrimaryGeneratedColumn,CreateDateColumn,UpdateDateColumn, Column, BaseEntity, BeforeUpdate, UpdateResult, OneToMany } from "typeorm"
-import { IUser } from "../models"
 import bcrypt from 'bcrypt'
 import { Task } from "./Task";
 
 @Entity()
-export class User extends BaseEntity implements IUser {
-
-    constructor(firstname: string, lastName: string, email: string, password: string){
-        super();
-        this.firstName = firstname
-        this.lastName = lastName
-        this.email = email
-        this.password = password
-    }
+export class User{
 
     @PrimaryGeneratedColumn('uuid')
     id!: string;
 
     @Column()
-    firstName: string
+    firstName!: string
 
     @Column({ nullable: true })
     lastName?: string
 
     @Column()
-    email: string
+    email!: string
 
     @Column()
-    password: string
+    password!: string
 
     @CreateDateColumn()
     createdAt!: Date
@@ -38,6 +29,13 @@ export class User extends BaseEntity implements IUser {
 
     @OneToMany(() => Task, (task) => task.user)
     tasks!: Task[]
+
+    constructor(firstName: string, lastName: string, email: string, password: string){
+        this.firstName = firstName
+        this.lastName = lastName
+        this.email = email
+        this.password = password
+    }
     
 }
 
