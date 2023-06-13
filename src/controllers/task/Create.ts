@@ -1,7 +1,9 @@
 import { Request, Response } from "express"
-import {Task, User } from "../../entidades"
-import { AppDataSource } from "../../database/data-source"
+import {Task} from "../../entidades"
+
 import { StatusCodes } from "http-status-codes"
+import { taskRepository } from "../../repositories/TaskRepository"
+import { userRepository } from "../../repositories/UserRepository"
 
 export const create = async (req: Request,res: Response) => {
     const {title, description} = req.body
@@ -9,13 +11,13 @@ export const create = async (req: Request,res: Response) => {
     const id = String(req.headers['id-access-token']) 
 
     try {
-        const user = await AppDataSource.manager.findOne(User, { where: { id: id} })
+        const user = await userRepository.findOne({ where: { id: id} })
         if(!user){
             throw new Error('Usuário não encontrado!')
         }
 
         task.user = user 
-        await task.save()
+        await taskRepository.save(task)
 
         return res.status(StatusCodes.CREATED).json({
             message: 'Tarefa adicionada com sucesso!, id: ' + task.id
