@@ -1,18 +1,21 @@
 import { Request, Response } from "express";
 import { Tag, Task } from "../../entidades";
-import { AppDataSource } from "../../database/data-source";
+import { AppDataSource } from "../../connection/data-source";
 import { StatusCodes } from "http-status-codes";
+import { tagRepository } from "../../repositories/TagRepository";
+import { taskRepository } from "../../repositories/TaskRepository";
 
 export const bindingTask = async (req: Request, res:Response) => {
     const { title } = req.body
     const tag =  new Tag(title)
-    await tag.save()
+    await tagRepository.save(tag)
     try {
-        const task = await AppDataSource.manager.findOne(Task, { where: { id: req.params.id }, relations: ['tags'] })
+        const task = await taskRepository.findOne({ where: { id: req.params.id }, relations: ['tags']})
+        
         if(!task){throw new Error('Id inválido!')}
 
         task.tags.push(tag)
-        await task.save()
+        await taskRepository.save(task)
 
         return res.status(StatusCodes.CREATED).json({
             message: 'Tag adicionada com sucesso e vinculada com a task!, idTask: ' + task.id
