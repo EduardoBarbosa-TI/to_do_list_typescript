@@ -1,9 +1,8 @@
-import { IUser } from "../../models";
+import { User } from "../../entidades";
 import { validation } from "../../shared/middlewares";
 import * as yup  from 'yup'
 
-
-interface IBodyProps extends Omit<IUser,'firstName'| 'id' | 'lastName'> {}
+interface IBodyProps extends Omit<User,'firstName'| 'id' | 'lastName' | 'createdAt' | 'updatedAt' | 'tasks'> {}
 
 export const bodyLogin = validation((getSchema) => ({
     body: getSchema<IBodyProps>(yup.object().shape({
