@@ -10,13 +10,12 @@ import {
     PrimaryGeneratedColumn, 
     UpdateDateColumn 
 } from "typeorm";
-import { ITask } from "../models";
 import { User } from "./User";
 import { Tag } from "./Tag";
 import { IQueryProps } from "../schemas/task/QueryFilter";
-import { AppDataSource } from "../database/data-source";
+import { AppDataSource } from "../connection/data-source";
 @Entity()
-export class Task extends BaseEntity implements ITask {
+export class Task{
 
     @PrimaryGeneratedColumn('uuid')
     id!: string
@@ -41,15 +40,12 @@ export class Task extends BaseEntity implements ITask {
     tags: Tag[]
 
     constructor(title: string, description: string, tags: Tag[]) {
-        super();
         this.title = title
         this.description = description
         this.tags = tags;
     }
 
-    static createWithTask(title: string, description: string, tags: Tag[]): Task {
-        return new Task(title, description, tags);
-    }
+ 
 
     static async getAllFilter(queryFilter: IQueryProps): Promise<Task[]> {
         const task: FindManyOptions<Task> = { relations: ['user', 'tags'] }
