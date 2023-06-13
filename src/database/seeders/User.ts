@@ -1,6 +1,7 @@
 import { User } from "../../entidades";
-import { AppDataSource } from "../data-source";
+
 import bcrypt from 'bcrypt';
+import { userRepository } from "../../repositories/UserRepository";
 
 async function seedUser() {
     const firstName = "admin"
@@ -11,7 +12,7 @@ async function seedUser() {
 
   try {
     const user = new User(firstName,lastName,email,hashedPassword);
-    await AppDataSource.manager.save(user);
+    await userRepository.save(user);
   } catch (error) {
     return error
   }
