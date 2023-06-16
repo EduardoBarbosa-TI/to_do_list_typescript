@@ -1,6 +1,5 @@
 import { Request, Response } from "express";
-import {Task} from "../../entidades";
-
+import {Task} from "../../entities";
 import { StatusCodes } from "http-status-codes";
 import { tagRepository } from "../../repositories/TagRepository";
 import { userRepository } from "../../repositories/UserRepository";
