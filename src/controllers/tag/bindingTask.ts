@@ -1,6 +1,5 @@
 import { Request, Response } from "express";
-import { Tag, Task } from "../../entidades";
-import { AppDataSource } from "../../connection/data-source";
+import { Tag} from "../../entities";
 import { StatusCodes } from "http-status-codes";
 import { tagRepository } from "../../repositories/TagRepository";
 import { taskRepository } from "../../repositories/TaskRepository";
