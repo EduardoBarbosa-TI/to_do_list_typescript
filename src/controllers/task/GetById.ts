@@ -1,6 +1,4 @@
 import { Request, Response } from "express"
-import { AppDataSource } from "../../connection/data-source"
-import { Task } from "../../entidades"
 import { StatusCodes } from "http-status-codes"
 import { taskRepository } from "../../repositories/TaskRepository"
 
