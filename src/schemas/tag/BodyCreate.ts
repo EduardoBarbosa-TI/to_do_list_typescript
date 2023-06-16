@@ -1,5 +1,5 @@
 
-import { Tag } from "../../entidades";
+import { Tag } from "../../entities";
 import { validation } from "../../shared/middlewares";
 import * as yup from 'yup'
 interface IBodyProps extends Omit<Tag,'id' | 'createdAt' | 'updatedAt' | 'tasks'> {}
