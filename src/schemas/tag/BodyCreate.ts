@@ -1,7 +1,8 @@
-import { ITag } from "../../models";
+
+import { Tag } from "../../entities";
 import { validation } from "../../shared/middlewares";
 import * as yup from 'yup'
-interface IBodyProps extends Omit<ITag,'id'> {}
+interface IBodyProps extends Omit<Tag,'id' | 'createdAt' | 'updatedAt' | 'tasks'> {}
 
 export const bodyCreate = validation(getSchema => ({
     body: getSchema<IBodyProps>(yup.object().shape({

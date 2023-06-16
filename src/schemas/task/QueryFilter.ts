@@ -1,6 +1,5 @@
 import { validation } from "../../shared/middlewares"
 import * as yup  from 'yup'
-
 export interface IQueryProps{
     id?: string
     title?: string

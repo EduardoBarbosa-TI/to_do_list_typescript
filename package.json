@@ -7,7 +7,10 @@
   "license": "MIT",
   "scripts": {
     "start": "ts-node-dev ./src/server.ts",
-    "seed": "ts-node src/database/seeders/User.ts"
+    "migration:generate": "typeorm-ts-node-commonjs -d ./src/data-source.ts migration:generate ./src/database/migrations/default",
+    "migration:run": "typeorm-ts-node-commonjs -d ./src/data-source.ts migration:run",
+    "migration:revert": "typeorm-ts-node-commonjs -d ./src/data-source.ts migration:revert",
+    "seed": "ts-node ./node_modules/typeorm-extension/dist/cli/index.js seed -d ./src/data-source.ts"
   },
   "devDependencies": {
     "@types/bcrypt": "^5.0.0",
@@ -28,6 +31,7 @@
     "pg": "^8.11.0",
     "reflect-metadata": "^0.1.13",
     "typeorm": "^0.3.16",
+    "typeorm-extension": "^2.8.1",
     "yup": "^1.2.0"
   }
 }

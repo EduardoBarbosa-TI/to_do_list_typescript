@@ -1,12 +1,11 @@
 import { Request, Response } from 'express'
 import { StatusCodes } from 'http-status-codes'
-import { AppDataSource } from '../../database/data-source'
-import { User } from '../../entidades'
 import { IQueryProps } from '../../schemas/task/QueryFilter' 
+import { userRepository } from '../../repositories/UserRepository'
 
 export const getAll = async (req: Request<{}, {}, {}, IQueryProps>, res: Response) => {
   try {
-    const users = await AppDataSource.manager.find(User, { relations: ['tasks'] })
+    const users = await userRepository.find({ relations: ['tasks'] })
     return res.status(StatusCodes.OK).json({
       user: users
     })

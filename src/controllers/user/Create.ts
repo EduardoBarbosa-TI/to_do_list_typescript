@@ -1,16 +1,16 @@
 import { Request, Response } from "express"
 import bcrypt from 'bcrypt';
-import { User } from "../../entidades/User"
-import { AppDataSource } from "../../database/data-source"
+import { User } from "../../entities/User"
 import { StatusCodes } from "http-status-codes"
+import { userRepository } from "../../repositories/UserRepository";
 
 export const create = async (req: Request,res: Response)=> {
     const {password,firstName,lastName,email} = req.body 
-    const hashedPassword =  await bcrypt.hash(password,15)
+    const hashedPassword =  await bcrypt.hash(password,10)
     const user = new User(firstName,lastName,email,hashedPassword)
 
     try {
-      (await AppDataSource.manager.save(user)).hasId
+      (await userRepository.save(user)).id
 
       return res.status(StatusCodes.CREATED).json({
         "message": "Usuário criado com sucesso!, id: " + user.id
