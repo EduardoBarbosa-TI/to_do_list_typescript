@@ -1,9 +1,7 @@
 import { Router } from 'express'
 import { UserController } from '../controllers'
-
+import { authorizeUserByToken } from '../shared/middlewares/authenticator' 
 import { TaskSchema, UserSchema } from '../schemas'
-import { authorizeUserByToken } from '../shared/middlewares'
-
 
 const routesUser = Router()
 
