@@ -1,7 +1,8 @@
 import { Router } from "express";
+import routesTask from "./Task";
+import { authorizeUserByToken } from "../shared/middlewares/authenticator"; 
 import { TagController } from "../controllers";
 import { TagSchema } from "../schemas";
-import { authorizeUserByToken } from "../shared/middlewares";
 
 const routesTag = Router()
 
@@ -9,23 +10,27 @@ routesTag.use(authorizeUserByToken)
 
 routesTag.get(
     '/tags', 
+
     TagController.getAll
 )
 
 routesTag.get(
     '/tags/:id', 
+
     TagSchema.params,
     TagController.getbyId
 )
 
 routesTag.post(
     '/tags', 
+    
     TagSchema.bodyCreate,
     TagController.create
 )
 
-routesTag.post(
+routesTask.post(
     '/tags/:id',
+    
     TagSchema.params,
     TagSchema.bodyCreate,
     TagController.bindingTask
