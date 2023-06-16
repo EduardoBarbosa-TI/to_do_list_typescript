@@ -1,7 +1,7 @@
 import { Request, Response } from "express"
-import {comparePassword} from "../../entidades/User"
+import {comparePassword} from "../../entities/User"
 import { StatusCodes } from "http-status-codes"
-import { gerarToken } from "../../auth/auth"
+import { gerarToken } from "../../shared/middlewares" 
 
 import { userRepository } from "../../repositories/UserRepository"
 
