@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { Tag } from "../../entidades";
+import { Tag } from "../../entities";
 import { StatusCodes } from "http-status-codes";
 import { tagRepository } from "../../repositories/TagRepository";
  
