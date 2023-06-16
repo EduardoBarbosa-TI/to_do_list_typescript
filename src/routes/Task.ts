@@ -1,8 +1,7 @@
 import { Router } from 'express'
 import { TaskController} from '../controllers'
 import { TaskSchema } from '../schemas'
-import { authorizeUserByToken } from '../shared/middlewares'
-
+import { authorizeUserByToken } from '../shared/middlewares/authenticator'
 
 const routesTask = Router()
 
