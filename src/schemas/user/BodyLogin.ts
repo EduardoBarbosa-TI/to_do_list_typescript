@@ -1,4 +1,4 @@
-import { User } from "../../entities";
+import { User } from "../../entidades";
 import { validation } from "../../shared/middlewares";
 import * as yup  from 'yup'
 
