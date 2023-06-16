@@ -1,8 +1,6 @@
 import { Request, Response } from 'express'
 import { StatusCodes } from 'http-status-codes'
 import { IProps } from '../../schemas/Params'
-import { User } from '../../entidades'
-import { AppDataSource } from '../../connection/data-source'
 import { userRepository } from '../../repositories/UserRepository'
 
 export const getById = async (req: Request<IProps>,  res: Response) => {
