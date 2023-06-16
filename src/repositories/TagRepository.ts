@@ -1,4 +1,4 @@
-import { AppDataSource } from "../connection/data-source";
-import { Tag } from "../entidades";
+import { AppDataSource } from "../data-source";
+import { Tag } from "../entities";
 
 export const tagRepository = AppDataSource.getRepository(Tag)

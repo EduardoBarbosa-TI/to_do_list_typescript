@@ -1,21 +1,21 @@
 import { Router } from 'express'
 import { TaskController} from '../controllers'
-import { authorizeUserByToken } from '../auth'
 import { TaskSchema } from '../schemas'
+import { authorizeUserByToken } from '../shared/middlewares'
 
 
 const routesTask = Router()
 
+routesTask.use(authorizeUserByToken)
+
 routesTask.post(
     '/tarefas',
-    authorizeUserByToken,
     TaskSchema.bodyCreate,
     TaskController.create
 )
 
 routesTask.post(
     '/tarefas/:id',
-    authorizeUserByToken,
     TaskSchema.params,
     TaskSchema.bodyCreate,
     TaskController.bindingTag
@@ -23,20 +23,17 @@ routesTask.post(
 
 routesTask.get(
     '/tarefas',
-    authorizeUserByToken,
     TaskController.getAll
 )
 
 routesTask.get(
     '/tarefas/:id',
-    authorizeUserByToken,
     TaskSchema.params,
     TaskController.getById
 )
 
 routesTask.put(
     '/tarefas/:id',
-    authorizeUserByToken,
     TaskSchema.bodyCreate,
     TaskSchema.params,
     TaskController.updateById
@@ -44,7 +41,6 @@ routesTask.put(
 
 routesTask.delete(
     '/tarefas/:id',
-    authorizeUserByToken,
     TaskSchema.params,
     TaskController.deleteById
 

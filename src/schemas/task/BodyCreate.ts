@@ -1,4 +1,4 @@
-import { Task } from "../../entidades"
+import { Task } from "../../entities"
 import { validation } from "../../shared/middlewares"
 import * as yup from 'yup'
 

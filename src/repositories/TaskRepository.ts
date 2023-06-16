@@ -1,4 +1,4 @@
-import { AppDataSource } from "../connection/data-source";
-import { Task } from "../entidades";
+import { AppDataSource } from "../data-source";
+import { Task } from "../entities";
 
 export const taskRepository = AppDataSource.getRepository(Task)
